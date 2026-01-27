@@ -22,21 +22,14 @@
       <tf_topic>/tf</tf_topic>
       <frame_id>odom</frame_id>
       <child_frame_id>base_link</child_frame_id>
+      <odom_publish_frequency>50</odom_publish_frequency>
     </plugin>
 
     <plugin
         filename="gz-sim-joint-state-publisher-system"
         name="gz::sim::systems::JointStatePublisher">
         <topic>joint_states</topic>
-    </plugin>
-
-    <plugin
-      filename="gz-sim-pose-publisher-system"
-      name="gz::sim::systems::PosePublisher">
-      <publish_link_pose>true</publish_link_pose>
-      <use_pose_vector_msg>true</use_pose_vector_msg>
-      <static_publisher>true</static_publisher>
-      <static_update_frequency>1</static_update_frequency>
+        <update_rate>50</update_rate>
     </plugin>
 
     <plugin
@@ -47,6 +40,7 @@
       <odom_topic>/ground_truth/odom</odom_topic>
       <tf_topic>/tf</tf_topic>
       <dimensions>3</dimensions>
+      <odom_publish_frequency>50</odom_publish_frequency>
     </plugin>
   </gazebo>
 </robot>
