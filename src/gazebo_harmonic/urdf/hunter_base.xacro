@@ -94,58 +94,25 @@
 <gazebo>
     <plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu"/>
     <plugin filename="gz-sim-navsat-system" name="gz::sim::systems::NavSat"/>
-    <!-- <plugin filename="gz-sim-wheel-slip-system" name="gz::sim::systems::WheelSlip">
-      <wheel link_name="rear_left_link">
-        <slip_compliance_lateral>0.0</slip_compliance_lateral>
-        <slip_compliance_longitudinal>0.0</slip_compliance_longitudinal>
-        <wheel_radius>0.165</wheel_radius>
-        <wheel_normal_force>171.5</wheel_normal_force>
-      </wheel>
-      <wheel link_name="rear_right_link">
-        <slip_compliance_lateral>0.0</slip_compliance_lateral>
-        <slip_compliance_longitudinal>0.0</slip_compliance_longitudinal>
-        <wheel_radius>0.165</wheel_radius>
-        <wheel_normal_force>171.5</wheel_normal_force>
-      </wheel>
-      <wheel link_name="front_left_wheel_link">
-        <slip_compliance_lateral>0.0</slip_compliance_lateral>
-        <slip_compliance_longitudinal>0.0</slip_compliance_longitudinal>
-        <wheel_radius>0.165</wheel_radius>
-        <wheel_normal_force>171.5</wheel_normal_force>
-      </wheel>
-      <wheel link_name="front_right_wheel_link">
-        <slip_compliance_lateral>0.0</slip_compliance_lateral>
-        <slip_compliance_longitudinal>0.0</slip_compliance_longitudinal>
-        <wheel_radius>0.165</wheel_radius>
-        <wheel_normal_force>171.5</wheel_normal_force>
-      </wheel>
-    </plugin> -->
 </gazebo>
 
-<!-- <gazebo reference="imu_link">
-  <sensor name="imu_sensor" type="imu">
-    <always_on>true</always_on>
-    <update_rate>100</update_rate>
-    <visualize>true</visualize>
-    <topic>imu</topic>
-  </sensor>
-</gazebo> -->
 <gazebo reference="imu_link">                                                               
   <sensor name="imu_sensor" type="imu">                                                     
     <always_on>true</always_on>                                                             
     <update_rate>100</update_rate>                                                          
     <visualize>true</visualize>                                                             
-    <topic>imu</topic>                                                                      
+    <topic>imu</topic>
+    <frame_id>imu_link</frame_id>                                                                      
     <imu>                                                                                   
       <angular_velocity>                                                                    
-        <x><noise type="gaussian"><mean>0</mean><stddev>0.0</stddev></noise></x>          
-        <y><noise type="gaussian"><mean>0</mean><stddev>0.0</stddev></noise></y>          
-        <z><noise type="gaussian"><mean>0</mean><stddev>0.0</stddev></noise></z>          
+        <x><noise type="gaussian"><mean>0</mean><stddev>0.000001</stddev></noise></x>          
+        <y><noise type="gaussian"><mean>0</mean><stddev>0.000001</stddev></noise></y>          
+        <z><noise type="gaussian"><mean>0</mean><stddev>0.000001</stddev></noise></z>          
       </angular_velocity>                                                                   
       <linear_acceleration>                                                                 
-        <x><noise type="gaussian"><mean>0</mean><stddev>0.0</stddev></noise></x>           
-        <y><noise type="gaussian"><mean>0</mean><stddev>0.0</stddev></noise></y>           
-        <z><noise type="gaussian"><mean>0</mean><stddev>0.0</stddev></noise></z>           
+        <x><noise type="gaussian"><mean>0</mean><stddev>0.000001</stddev></noise></x>           
+        <y><noise type="gaussian"><mean>0</mean><stddev>0.000001</stddev></noise></y>           
+        <z><noise type="gaussian"><mean>0</mean><stddev>0.000001</stddev></noise></z>           
       </linear_acceleration>                                                                
     </imu>                                                                                  
   </sensor>                                                                                 
@@ -156,7 +123,14 @@
     <always_on>true</always_on>
     <update_rate>10</update_rate>
     <topic>gps</topic>
-  </sensor>
+    <frame_id>gps_link</frame_id>
+    <navsat>
+      <position_sensing>
+        <horizontal><noise type="gaussian"><mean>0.0</mean><stddev>0.00001</stddev></noise></horizontal>
+        <vertical><noise type="gaussian"><mean>0.0</mean><stddev>0.00001</stddev></noise></vertical>
+      </position_sensing>
+    </navsat>
+    </sensor>
 </gazebo>
 
 </robot>

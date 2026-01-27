@@ -9,7 +9,7 @@
       <left_steering_joint>front_steer_left_joint</left_steering_joint>
       <right_steering_joint>front_steer_right_joint</right_steering_joint>
       <kingpin_width>0.585</kingpin_width>
-      <steering_limit>0.576</steering_limit>
+      <steering_limit>0.461</steering_limit>
       <wheel_base>0.65142</wheel_base>
       <wheel_separation>0.585</wheel_separation>
       <wheel_radius>0.165</wheel_radius>
@@ -17,12 +17,15 @@
       <max_velocity>10</max_velocity>
       <min_acceleration>-5</min_acceleration>
       <max_acceleration>5</max_acceleration>
+      
       <topic>/cmd_vel</topic>
-      <odom_topic>/odom</odom_topic>
-      <tf_topic>/tf</tf_topic>
-      <frame_id>odom</frame_id>
-      <child_frame_id>base_link</child_frame_id>
+      <odom_topic>/odom</odom_topic> 
       <odom_publish_frequency>50</odom_publish_frequency>
+      
+      <frame_id>odom</frame_id>           
+      <child_frame_id>base_link</child_frame_id>
+
+      <tf_topic>/tf_gz</tf_topic>
     </plugin>
 
     <plugin
@@ -36,8 +39,8 @@
       filename="gz-sim-odometry-publisher-system"
       name="gz::sim::systems::OdometryPublisher">
       <odom_frame>world</odom_frame>
-      <robot_base_frame>base_link_gt</robot_base_frame>
-      <odom_topic>/ground_truth/odom</odom_topic>
+      <robot_base_frame>base_link_ground_truth</robot_base_frame>
+      <odom_topic>/odometry/ground_truth</odom_topic>
       <tf_topic>/tf</tf_topic>
       <dimensions>3</dimensions>
       <odom_publish_frequency>50</odom_publish_frequency>

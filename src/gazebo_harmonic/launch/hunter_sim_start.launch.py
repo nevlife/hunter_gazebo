@@ -63,7 +63,7 @@ def generate_launch_description():
             '/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist',
             '/joint_states@sensor_msgs/msg/JointState@gz.msgs.Model',
             '/odom@nav_msgs/msg/Odometry@gz.msgs.Odometry',
-            '/tf@tf2_msgs/msg/TFMessage@gz.msgs.Pose_V',
+            #'/tf@tf2_msgs/msg/TFMessage@gz.msgs.Pose_V',
             '/ground_truth/odom@nav_msgs/msg/Odometry@gz.msgs.Odometry'
         ],
         output='screen'
