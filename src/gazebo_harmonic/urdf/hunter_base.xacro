@@ -94,7 +94,7 @@
 <gazebo>
     <plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu"/>
     <plugin filename="gz-sim-navsat-system" name="gz::sim::systems::NavSat"/>
-    <plugin filename="gz-sim-wheel-slip-system" name="gz::sim::systems::WheelSlip">
+    <!-- <plugin filename="gz-sim-wheel-slip-system" name="gz::sim::systems::WheelSlip">
       <wheel link_name="rear_left_link">
         <slip_compliance_lateral>0.0</slip_compliance_lateral>
         <slip_compliance_longitudinal>0.0</slip_compliance_longitudinal>
@@ -119,7 +119,7 @@
         <wheel_radius>0.165</wheel_radius>
         <wheel_normal_force>171.5</wheel_normal_force>
       </wheel>
-    </plugin>
+    </plugin> -->
 </gazebo>
 
 <!-- <gazebo reference="imu_link">
@@ -138,14 +138,14 @@
     <topic>imu</topic>                                                                      
     <imu>                                                                                   
       <angular_velocity>                                                                    
-        <x><noise type="gaussian"><mean>0</mean><stddev>0.001</stddev></noise></x>          
-        <y><noise type="gaussian"><mean>0</mean><stddev>0.001</stddev></noise></y>          
-        <z><noise type="gaussian"><mean>0</mean><stddev>0.001</stddev></noise></z>          
+        <x><noise type="gaussian"><mean>0</mean><stddev>0.0</stddev></noise></x>          
+        <y><noise type="gaussian"><mean>0</mean><stddev>0.0</stddev></noise></y>          
+        <z><noise type="gaussian"><mean>0</mean><stddev>0.0</stddev></noise></z>          
       </angular_velocity>                                                                   
       <linear_acceleration>                                                                 
-        <x><noise type="gaussian"><mean>0</mean><stddev>0.01</stddev></noise></x>           
-        <y><noise type="gaussian"><mean>0</mean><stddev>0.01</stddev></noise></y>           
-        <z><noise type="gaussian"><mean>0</mean><stddev>0.01</stddev></noise></z>           
+        <x><noise type="gaussian"><mean>0</mean><stddev>0.0</stddev></noise></x>           
+        <y><noise type="gaussian"><mean>0</mean><stddev>0.0</stddev></noise></y>           
+        <z><noise type="gaussian"><mean>0</mean><stddev>0.0</stddev></noise></z>           
       </linear_acceleration>                                                                
     </imu>                                                                                  
   </sensor>                                                                                 

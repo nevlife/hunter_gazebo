@@ -59,7 +59,12 @@ def generate_launch_description():
             '/gps@sensor_msgs/msg/NavSatFix@gz.msgs.NavSat',
             # '/lidar@sensor_msgs/msg/LaserScan@gz.msgs.LaserScan',
             '/velodyne_points/points@sensor_msgs/msg/PointCloud2@gz.msgs.PointCloudPacked',
-            '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock'
+            '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
+            '/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist',
+            '/joint_states@sensor_msgs/msg/JointState@gz.msgs.Model',
+            '/odom@nav_msgs/msg/Odometry@gz.msgs.Odometry',
+            '/tf@tf2_msgs/msg/TFMessage@gz.msgs.Pose_V',
+            '/ground_truth/odom@nav_msgs/msg/Odometry@gz.msgs.Odometry'
         ],
         output='screen'
     )

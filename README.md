@@ -1,13 +1,13 @@
 # Hunter Gazebo Harmonic Simulation
 
-Gazebo Harmonic 환경에서 동작하도록 개발된 Hunter 로봇 시뮬레이션 패키지입니다. Ackermann Steering 구조를 지원하며, ROS 2와 Gazebo Harmonic 간의 원활한 연동을 위해 `ros2_control` 및 `gz_ros2_control`을 활용합니다.
+Gazebo Harmonic 환경에서 동작하도록 개발된 Hunter 로봇 시뮬레이션 패키지입니다. Ackermann Steering 구조를 지원하며, Gazebo Harmonic의 native plugin을 사용하여 제어합니다.
 
 ## 시스템 구성 및 사양
 
 ### 1. 조향 시스템 (Steering System)
 Hunter 로봇은 **Ackermann Steering** 기하학 구조를 기반으로 합니다.
 - **구동 방식**: 후륜 구동 (Rear-Wheel Drive), 전륜 조향 (Front-Wheel Steering)
-- **컨트롤러**: `ackermann_steering_controller` (ros2_control)
+- **컨트롤러**: `gz-sim-ackermann-steering-system` (Gazebo Plugin)
 
 
 ### 2. 센서 (Sensors)
@@ -43,8 +43,5 @@ ros2 launch gazebo_harmonic hunter_sim_start.launch.py
 키보드를 사용하여 로봇을 조종할 수 있습니다:
 
 ```bash
-ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args \
-    -r /cmd_vel:=/ackermann_steering_controller/reference \
-    -p stamped:=true \
-    -p frame_id:=base_link
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```

@@ -46,18 +46,6 @@ def generate_launch_description():
         output='screen'
     )
 
-    load_joint_state_broadcaster = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
-    )
-
-    load_ackermann_steering_controller = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["ackermann_steering_controller", "--controller-manager", "/controller_manager"],
-    )
-
     return LaunchDescription([
         DeclareLaunchArgument('start_x', default_value='0.0',
                               description='X coordinate of starting position'),
@@ -71,11 +59,4 @@ def generate_launch_description():
                               description='Name and prefix for this robot'),
         robot_state_publisher,
         spawn_entity,
-        load_joint_state_broadcaster,
-        RegisterEventHandler(
-            event_handler=OnProcessExit(
-                target_action=load_joint_state_broadcaster,
-                on_exit=[load_ackermann_steering_controller],
-            )
-        ),
     ])

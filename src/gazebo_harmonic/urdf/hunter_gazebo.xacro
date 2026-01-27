@@ -3,7 +3,7 @@
 
     <!-- Include Gazebo plugins -->
     <xacro:include filename="$(find gazebo_harmonic)/urdf/hunter_base.xacro"/>
-    <xacro:include filename="$(find gazebo_harmonic)/urdf/ros2_control.xacro"/>
+    <xacro:include filename="$(find gazebo_harmonic)/urdf/gazebo_control.xacro"/>
     <xacro:include filename="$(find gazebo_harmonic)/urdf/velodyne_VLP32C_gazebo.xacro"/>
 
     <!-- Include modular components -->

@@ -33,7 +33,7 @@
     <child link="front_steer_left_link"/>
     <axis xyz="0 1 0"/>
     <limit lower="-0.576" upper="0.576" effort="1000" velocity="1000"/>
-    <dynamics damping="0.7"/>
+    <dynamics damping="0.2"/>
   </joint>
 
   <link name="front_left_wheel_link">
@@ -55,7 +55,8 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <cylinder radius="0.165" length="0.14"/>
+        <!-- Reduced length to 0.01 to prevent steering interference with chassis -->
+        <cylinder radius="0.165" length="0.01"/>
       </geometry>
     </collision>
   </link>
@@ -65,7 +66,7 @@
     <parent link="front_steer_left_link"/>
     <child link="front_left_wheel_link"/>
     <axis xyz="0 0 -1"/>
-    <dynamics damping="0.7"/>
+    <dynamics damping="0.2"/>
   </joint>
 
   <!-- ========== Front Right Steering Link & Wheel ========== -->
@@ -100,7 +101,7 @@
     <child link="front_steer_right_link"/>
     <axis xyz="0 1 0"/>
     <limit lower="-0.576" upper="0.576" effort="1000" velocity="1000"/>
-    <dynamics damping="0.7"/>
+    <dynamics damping="0.2"/>
   </joint>
 
   <link name="front_right_wheel_link">
@@ -122,7 +123,8 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <cylinder radius="0.165" length="0.14"/>
+        <!-- Reduced length to 0.01 to prevent steering interference with chassis -->
+        <cylinder radius="0.165" length="0.01"/>
       </geometry>
     </collision>
   </link>
@@ -132,7 +134,7 @@
     <parent link="front_steer_right_link"/>
     <child link="front_right_wheel_link"/>
     <axis xyz="0 0 -1"/>
-    <dynamics damping="0.7"/>
+    <dynamics damping="0.2"/>
   </joint>
 
 </robot>
