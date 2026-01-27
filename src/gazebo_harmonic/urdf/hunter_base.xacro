@@ -2,8 +2,8 @@
 <robot name="hunter" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 <gazebo reference="chassis">
-  <mu1 value="0.0"/>
-  <mu2 value="0.0"/>
+  <mu1 value="1.0"/>
+  <mu2 value="1.0"/>
   <kp  value="10000000.0" />
   <kd  value="1.0" />
   <visual>
@@ -16,8 +16,8 @@
 </gazebo>
 
 <gazebo reference="front_left_wheel_link">
-  <mu1 value="0.0"/>
-  <mu2 value="0.0"/>
+  <mu1 value="1.0"/>
+  <mu2 value="1.0"/>
   <kp  value="10000000.0" />
   <kd  value="1.0" />
   <fdir1 value="1 0 0"/>
@@ -31,8 +31,8 @@
 </gazebo>
 
 <gazebo reference="front_right_wheel_link">
-  <mu1 value="0.0"/>
-  <mu2 value="0.0"/>
+  <mu1 value="1.0"/>
+  <mu2 value="1.0"/>
   <kp  value="10000000.0" />
   <kd  value="1.0" />
   <fdir1 value="1 0 0"/>
@@ -46,8 +46,8 @@
 </gazebo>
 
 <gazebo reference="rear_left_link">
-  <mu1 value="0.0"/>
-  <mu2 value="0.0"/>
+  <mu1 value="1.0"/>
+  <mu2 value="1.0"/>
   <kp  value="10000000.0" />
   <kd  value="1.0" />
   <fdir1 value="1 0 0"/>
@@ -61,8 +61,8 @@
 </gazebo>
 
 <gazebo reference="rear_right_link">
-  <mu1 value="0.0"/>
-  <mu2 value="0.0"/>
+  <mu1 value="1.0"/>
+  <mu2 value="1.0"/>
   <kp  value="10000000.0" />
   <kd  value="1.0" />
   <fdir1 value="1 0 0"/>
