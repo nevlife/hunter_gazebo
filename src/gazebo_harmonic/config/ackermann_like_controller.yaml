@@ -28,7 +28,7 @@ ackermann_steering_controller:
     traction_wheels_radius: 0.165 # URDF: 0.165
     steering_wheels_radius: 0.165
 
-    enable_odom_tf: true
+    enable_odom_tf: false
     base_frame_id: base_link
     odom_frame_id: odom
     publish_rate: 50.0
