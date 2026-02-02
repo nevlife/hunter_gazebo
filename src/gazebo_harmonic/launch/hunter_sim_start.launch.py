@@ -70,11 +70,27 @@ def generate_launch_description():
     )
 
     # Static TF to bridge URDF link and Gazebo sensor frame
-    static_tf = Node(
+    static_tf_lidar = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
-        name='static_transform_publisher',
+        name='static_tf_lidar',
         arguments=['0', '0', '0', '0', '0', '0', 'velodyne_sensor', 'hunter2/base_link/velodyne_sensor'],
+        output='screen'
+    )
+
+    static_tf_imu = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_tf_imu',
+        arguments=['0', '0', '0.05', '0', '0', '0', 'base_link', 'hunter2/base_link/imu_sensor'],
+        output='screen'
+    )
+
+    static_tf_gps = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_tf_gps',
+        arguments=['0', '0', '0.1', '0', '0', '0', 'base_link', 'hunter2/base_link/navsat_sensor'],
         output='screen'
     )
 
@@ -83,5 +99,7 @@ def generate_launch_description():
         gazebo_simulator,
         spawn_car,
         bridge,
-        static_tf,
+        static_tf_lidar,
+        static_tf_imu,
+        static_tf_gps,
     ])
