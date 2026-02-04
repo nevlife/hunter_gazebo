@@ -126,8 +126,8 @@
     <frame_id>base_link</frame_id>
     <navsat>
       <position_sensing>
-        <horizontal><noise type="gaussian"><mean>0.0</mean><stddev>0.00001</stddev></noise></horizontal>
-        <vertical><noise type="gaussian"><mean>0.0</mean><stddev>0.00001</stddev></noise></vertical>
+        <horizontal><noise type="gaussian"><mean>0.0</mean><stddev>0.00000045</stddev></noise></horizontal>
+        <vertical><noise type="gaussian"><mean>0.0</mean><stddev>0.00000045</stddev></noise></vertical>
       </position_sensing>
     </navsat>
     </sensor>
