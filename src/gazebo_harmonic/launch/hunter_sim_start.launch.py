@@ -53,7 +53,10 @@ def generate_launch_description():
         package='ros_gz_bridge',
         executable='parameter_bridge',
         parameters=[{'use_sim_time': True}],
-        remappings=[('/velodyne_points/points', '/velodyne_points')],
+        remappings=[
+            ('/velodyne_points/points', '/velodyne_points'),
+            ('/gps', '/gps/raw'),
+        ],
         arguments=[
             '/imu@sensor_msgs/msg/Imu@gz.msgs.IMU',
             '/gps@sensor_msgs/msg/NavSatFix@gz.msgs.NavSat',
@@ -94,6 +97,14 @@ def generate_launch_description():
         output='screen'
     )
 
+    gps_covariance_relay = Node(
+        package='gazebo_harmonic',
+        executable='gps_covariance_relay',
+        name='gps_covariance_relay',
+        parameters=[{'use_sim_time': True}],
+        output='screen'
+    )
+
     return LaunchDescription([
         set_gz_resource_path,
         gazebo_simulator,
@@ -102,4 +113,5 @@ def generate_launch_description():
         static_tf_lidar,
         static_tf_imu,
         static_tf_gps,
+        gps_covariance_relay,
     ])
