@@ -1,20 +1,20 @@
-# Hunter Gazebo Harmonic Simulation
+# Hunter Gazebo Jetty Simulation
 
-Gazebo Harmonic(gz-sim 8) + ROS 2 Jazzy 환경에서 동작하는 Hunter 로봇 시뮬레이션 패키지입니다.
+Gazebo Jetty(gz-sim 10) + ROS 2 Kilted 환경에서 동작하는 Hunter 로봇 시뮬레이션 패키지입니다.
 
 ## 패키지 구성
 
 | 패키지 | 설명 |
 |---|---|
-| `gazebo_harmonic` | 시뮬레이션 환경, Launch 파일, URDF/SDF, 컨트롤러 설정, `gps_covariance_relay` / `vehicle_speed_publisher` 노드 |
+| `gazebo_jetty` | 시뮬레이션 환경, Launch 파일, URDF/SDF, 컨트롤러 설정, `gps_covariance_relay` / `vehicle_speed_publisher` 노드 |
 | `hunter_base` | Hunter 로봇 기본 URDF 모델(링크/휠/박스 분리 구성) 및 STL 메쉬 리소스 |
 | `external/RGLGazeboPlugin` | GPU 가속 LiDAR 시뮬레이션 플러그인 (Gaussian noise 추가) |
 
 ## 시스템 요구사항
 
 - Ubuntu 24.04 LTS
-- ROS 2 Jazzy
-- Gazebo Harmonic (gz-sim 8)
+- ROS 2 Kilted
+- Gazebo Jetty (gz-sim 10)
 - NVIDIA GPU (CUDA 지원) + 드라이버
 
 ## 시스템 구성
@@ -25,7 +25,7 @@ Gazebo Harmonic(gz-sim 8) + ROS 2 Jazzy 환경에서 동작하는 Hunter 로봇 
 
 ```
 hunter_gazebo.xacro (robot name: hunter2)
-├── gazebo_harmonic/urdf/
+├── gazebo_jetty/urdf/
 │   ├── hunter_base.xacro       # 마찰 계수, 재질, IMU/GPS 센서 플러그인
 │   ├── gazebo_control.xacro    # Ackermann 조향, JointState, OdometryPublisher
 │   ├── velodyne_VLP32C_gazebo.xacro  # GPU LiDAR 센서 설정
@@ -68,7 +68,7 @@ Hunter 로봇은 **Ackermann Steering** 구조를 사용합니다.
 
 #### LiDAR 상세 (Native GPU LiDAR)
 
-Gazebo Harmonic native `gpu_lidar` 센서를 사용합니다.
+Gazebo Jetty native `gpu_lidar` 센서를 사용합니다.
 
 | 항목 | 값 |
 |---|---|
@@ -78,7 +78,7 @@ Gazebo Harmonic native `gpu_lidar` 센서를 사용합니다.
 | 측정 범위 | 0.4 m ~ 200 m |
 | 노이즈 | Gaussian (mean: 0, stddev: 0.008 m) |
 
-> 라이다 파라미터는 `src/gazebo_harmonic/urdf/velodyne_VLP32C_gazebo.xacro`에서 수정합니다.
+> 라이다 파라미터는 `src/gazebo_jetty/urdf/velodyne_VLP32C_gazebo.xacro`에서 수정합니다.
 
 #### Camera 상세
 
@@ -90,7 +90,7 @@ Gazebo Harmonic native `gpu_lidar` 센서를 사용합니다.
 | 클리핑 | 0.1 m ~ 100 m |
 | 마운트 위치 | front_box 링크, LiDAR 전방 하부 |
 
-> 카메라 파라미터는 `src/gazebo_harmonic/urdf/camera_gazebo.xacro`에서 수정합니다.
+> 카메라 파라미터는 `src/gazebo_jetty/urdf/camera_gazebo.xacro`에서 수정합니다.
 
 #### IMU 노이즈 파라미터
 
@@ -134,19 +134,19 @@ Gazebo /gps  →  ros_gz_bridge  →  /gps/raw  →  gps_covariance_relay  →  
 
 ## 의존성
 
-### 1. Gazebo Harmonic 설치
+### 1. Gazebo Jetty 설치
 
-[Gazebo Harmonic 공식 설치 가이드](https://gazebosim.org/docs/harmonic/install_ubuntu/)를 참고하여 설치합니다.
+[Gazebo Jetty 공식 설치 가이드](https://gazebosim.org/docs/jetty/install_ubuntu/)를 참고하여 설치합니다.
 
 ### 2. ROS 패키지 설치
 
 ```bash
 sudo apt install \
-  ros-jazzy-ros-gz-sim \
-  ros-jazzy-ros-gz-bridge \
-  ros-jazzy-xacro \
-  ros-jazzy-robot-state-publisher \
-  ros-jazzy-teleop-twist-keyboard
+  ros-kilted-ros-gz-sim \
+  ros-kilted-ros-gz-bridge \
+  ros-kilted-xacro \
+  ros-kilted-robot-state-publisher \
+  ros-kilted-teleop-twist-keyboard
 ```
 
 ### 3. rosdep 의존성 설치
@@ -169,13 +169,13 @@ source install/setup.bash
 ### Empty World (GPS 포함, 전체 기능)
 
 ```bash
-ros2 launch gazebo_harmonic hunter_sim_start.launch.py
+ros2 launch gazebo_jetty hunter_sim_start.launch.py
 ```
 
 ### Baylands World
 
 ```bash
-ros2 launch gazebo_harmonic hunter_simple_baylands.launch.py
+ros2 launch gazebo_jetty hunter_simple_baylands.launch.py
 ```
 
 ### 키보드 원격 제어
@@ -187,7 +187,7 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ### rviz2 시각화
 
 ```bash
-source ~/dev/hunter_gazebo_harmonic/install/setup.bash
+source ~/dev/hunter_gazebo_jetty/install/setup.bash
 rviz2
 ```
 
