@@ -1,6 +1,6 @@
 # Hunter Gazebo Harmonic Simulation
 
-Gazebo Harmonic(gz-sim 8) + ROS 2 Humble 환경에서 동작하는 Hunter 로봇 시뮬레이션 패키지입니다.
+Gazebo Harmonic(gz-sim 8) + ROS 2 Jazzy 환경에서 동작하는 Hunter 로봇 시뮬레이션 패키지입니다.
 
 ## 패키지 구성
 
@@ -12,8 +12,8 @@ Gazebo Harmonic(gz-sim 8) + ROS 2 Humble 환경에서 동작하는 Hunter 로봇
 
 ## 시스템 요구사항
 
-- Ubuntu 22.04 LTS
-- ROS 2 Humble
+- Ubuntu 24.04 LTS
+- ROS 2 Jazzy
 - Gazebo Harmonic (gz-sim 8)
 - NVIDIA GPU (CUDA 지원) + 드라이버
 
@@ -142,24 +142,24 @@ Gazebo /gps  →  ros_gz_bridge  →  /gps/raw  →  gps_covariance_relay  →  
 
 ```bash
 sudo apt install \
-  ros-humble-ros-gz-sim \
-  ros-humble-ros-gz-bridge \
-  ros-humble-xacro \
-  ros-humble-robot-state-publisher \
-  ros-humble-teleop-twist-keyboard
+  ros-jazzy-ros-gz-sim \
+  ros-jazzy-ros-gz-bridge \
+  ros-jazzy-xacro \
+  ros-jazzy-robot-state-publisher \
+  ros-jazzy-teleop-twist-keyboard
 ```
 
 ### 3. rosdep 의존성 설치
 
 ```bash
-cd ~/dev/hunter_gazebo_harmonic
+cd ~/dev/hunter_gazebo
 rosdep install --from-paths src --ignore-src -r -y
 ```
 
 ## 빌드
 
 ```bash
-cd ~/dev/hunter_gazebo_harmonic
+cd ~/dev/hunter_gazebo
 colcon build
 source install/setup.bash
 ```
