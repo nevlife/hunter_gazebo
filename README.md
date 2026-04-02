@@ -158,7 +158,7 @@ sudo apt install \
 ### 3. rosdep 의존성 설치
 
 ```bash
-cd ~/dev/hunter_gazebo_fortress
+cd ~/dev/hunter_gazebo
 rosdep install --from-paths src --ignore-src -r -y
 ```
 
@@ -169,7 +169,7 @@ rosdep install --from-paths src --ignore-src -r -y
 NVIDIA GPU 가속 LiDAR 시뮬레이션을 위한 [RGLGazeboPlugin](https://github.com/RobotecAI/RGLGazeboPlugin) (Fortress 브랜치)을 사용합니다. CUDA 지원 GPU와 NVIDIA 드라이버가 필요합니다.
 
 ```bash
-cd ~/dev/hunter_gazebo_fortress/external/RGLGazeboPlugin
+cd ~/dev/hunter_gazebo/external/RGLGazeboPlugin
 mkdir build && cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=../install && make -j$(nproc) && make install
 ```
@@ -179,7 +179,7 @@ cmake .. -DCMAKE_INSTALL_PREFIX=../install && make -j$(nproc) && make install
 ### 2. 워크스페이스 빌드
 
 ```bash
-cd ~/dev/hunter_gazebo_fortress
+cd ~/dev/hunter_gazebo
 colcon build
 source install/setup.bash
 ```
@@ -209,7 +209,7 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
 시뮬레이션 launch와 동일한 터미널(source된 환경)에서 실행하거나, 별도 터미널에서 source 후 실행합니다.
 
 ```bash
-source ~/dev/hunter_gazebo_fortress/install/setup.bash
+source ~/dev/hunter_gazebo/install/setup.bash
 rviz2
 ```
 
