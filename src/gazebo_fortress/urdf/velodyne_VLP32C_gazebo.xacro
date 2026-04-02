@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="PI" value="3.14159265359"/>
+
+  <gazebo reference="velodyne_sensor">
+    <sensor name="velodyne_sensor" type="custom">
+      <plugin filename="RGLServerPluginInstance" name="rgl::RGLServerPluginInstance">
+        <range>
+          <min>0.1</min>
+          <max>200</max>
+        </range>
+        <update_rate>10</update_rate>
+        <topic>velodyne_points</topic>
+        <frame>velodyne_sensor</frame>
+        <!-- <pattern_uniform>
+          <horizontal>
+            <samples>1875</samples>
+            <min_angle>${-PI}</min_angle>
+            <max_angle>${PI}</max_angle>
+          </horizontal>
+          <vertical>
+            <samples>32</samples>
+            <min_angle>${-25.0 * PI / 180.0}</min_angle>
+            <max_angle>${15.0 * PI / 180.0}</max_angle>
+          </vertical>
+        </pattern_uniform> -->
+        <pattern_preset>Ultra Puck</pattern_preset>
+        <noise_distance>
+          <mean>0.0</mean>
+          <stddev_base>0.008</stddev_base>
+          <stddev_rise_per_meter>0.0</stddev_rise_per_meter>
+        </noise_distance>
+      </plugin>
+    </sensor>
+  </gazebo>
+</robot>

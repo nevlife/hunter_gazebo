@@ -9,7 +9,7 @@ public:
   : Node("vehicle_speed_publisher")
   {
     sub_ = create_subscription<nav_msgs::msg::Odometry>(
-      "/odom", 10,
+      "/odometry/wheel", 10,
       [this](const nav_msgs::msg::Odometry::SharedPtr msg) {
         std_msgs::msg::Float64 speed_msg;
         speed_msg.data = msg->twist.twist.linear.x;

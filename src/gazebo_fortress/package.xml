@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>gazebo_harmonic</name>
+  <name>gazebo_fortress</name>
   <version>0.0.0</version>
-  <description>Hunter robot simulation for Gazebo Harmonic (gz-sim 8)</description>
+  <description>Hunter robot simulation for Gazebo Fortress (Ignition 6)</description>
   <maintainer email="pcdpcd100@gmail.com">q</maintainer>
   <license>TODO: License declaration</license>
 
@@ -21,8 +21,6 @@
 
   <depend>rclcpp</depend>
   <depend>sensor_msgs</depend>
-  <depend>nav_msgs</depend>
-  <depend>std_msgs</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
