@@ -3,7 +3,7 @@
 <package format="3">
   <name>hunter_base</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>Hunter robot base URDF model and mesh resources</description>
   <maintainer email="pcdpcd100@gmail.com">q</maintainer>
   <license>TODO: License declaration</license>
 

@@ -18,11 +18,16 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
 
 add_executable(gps_covariance_relay src/gps_covariance_relay.cpp)
 ament_target_dependencies(gps_covariance_relay rclcpp sensor_msgs)
 
-install(TARGETS gps_covariance_relay
+add_executable(vehicle_speed_publisher src/vehicle_speed_publisher.cpp)
+ament_target_dependencies(vehicle_speed_publisher rclcpp nav_msgs std_msgs)
+
+install(TARGETS gps_covariance_relay vehicle_speed_publisher
   DESTINATION lib/${PROJECT_NAME}
 )
 

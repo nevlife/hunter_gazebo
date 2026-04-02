@@ -1,10 +1,14 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="hunter2">
 
+    <xacro:arg name="for_rviz" default="false"/>
+    <xacro:property name="for_rviz" value="$(arg for_rviz)"/>
+
     <!-- Include Gazebo plugins -->
     <xacro:include filename="$(find gazebo_harmonic)/urdf/hunter_base.xacro"/>
     <xacro:include filename="$(find gazebo_harmonic)/urdf/gazebo_control.xacro"/>
     <xacro:include filename="$(find gazebo_harmonic)/urdf/velodyne_VLP32C_gazebo.xacro"/>
+    <xacro:include filename="$(find gazebo_harmonic)/urdf/camera_gazebo.xacro"/>
 
     <!-- Include modular components -->
     <xacro:include filename="$(find hunter_base)/urdf/base_link.xacro"/>
@@ -13,5 +17,6 @@
     <xacro:include filename="$(find hunter_base)/urdf/front_wheels.xacro"/>
     <xacro:include filename="$(find hunter_base)/urdf/rear_wheels.xacro"/>
     <xacro:include filename="$(find hunter_base)/urdf/velodyne_VLP32C.xacro"/>
+    <xacro:include filename="$(find hunter_base)/urdf/camera.xacro"/>
 
 </robot>

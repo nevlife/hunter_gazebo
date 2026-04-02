@@ -9,24 +9,15 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
 
-    # Set Gazebo model path
     gazebo_model_path = '/home/pgw/dev/gazebo_models_worlds_collection'
-    lidar_model_path = os.path.join(get_package_share_directory('hunter_base'), 'urdf')
-    
-    # Check if user-provided path exists, otherwise default to a safe path or empty
-    if not os.path.exists(gazebo_model_path):
-         # If the specific path doesn't exist, try to use the current workspace if possible, or just warn
-         # For this specific user request, we assume the path is correct or acceptable.
-         # But to be safe, let's append the current PWD if needed, or just keep it.
-         pass
-
-    combined_path = f'{gazebo_model_path}:{lidar_model_path}'
+    hunter_base_share = get_package_share_directory('hunter_base')
+    hunter_base_parent = os.path.dirname(hunter_base_share)
+    combined_path = f'{gazebo_model_path}:{hunter_base_parent}:{hunter_base_share}/urdf'
     set_gz_resource_path = SetEnvironmentVariable(
         name='GZ_SIM_RESOURCE_PATH',
         value=combined_path
     )
 
-    # Use the new GPS world
     pkg_share = get_package_share_directory('gazebo_harmonic')
     gazebo_world_path = os.path.join(pkg_share, 'world', 'simple_baylands.sdf')
 
@@ -40,43 +31,87 @@ def generate_launch_description():
     car_sim_options = {
         'start_x': '2.0',
         'start_y': '0',
-        'start_z': '0.5', # Slightly higher to avoid collision with ground at spawn
+        'start_z': '0.5',
         'start_yaw': '0',
-        'pub_tf': 'true',
-        'tf_freq': '100.0',
-        'blue': 'false'
     }
 
     spawn_car = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             os.path.join(
-                         get_package_share_directory('gazebo_harmonic'),
-                         'launch', 'hunter_spawn.launch.py')
+                get_package_share_directory('gazebo_harmonic'),
+                'launch', 'hunter_spawn.launch.py')
         ]),
         launch_arguments=car_sim_options.items()
     )
 
-    # Bridge between Gazebo and ROS 2
+    # Bridge between Gazebo Harmonic and ROS 2
     bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
         parameters=[{'use_sim_time': True}],
-        remappings=[('/velodyne_points/points', '/velodyne_points')],
+        remappings=[
+            ('/velodyne_points/points', '/velodyne_points'),
+            ('/gps', '/gps/raw'),
+        ],
         arguments=[
             '/imu@sensor_msgs/msg/Imu@gz.msgs.IMU',
             '/gps@sensor_msgs/msg/NavSatFix@gz.msgs.NavSat',
             '/velodyne_points/points@sensor_msgs/msg/PointCloud2@gz.msgs.PointCloudPacked',
-            '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock'
+            '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
+            '/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist',
+            '/joint_states@sensor_msgs/msg/JointState@gz.msgs.Model',
+            '/odom@nav_msgs/msg/Odometry@gz.msgs.Odometry',
+            '/odometry/ground_truth@nav_msgs/msg/Odometry@gz.msgs.Odometry',
+            '/camera/raw@sensor_msgs/msg/Image[gz.msgs.Image'
         ],
         output='screen'
     )
 
-    # Static TF to bridge URDF link and Gazebo sensor frame
-    static_tf = Node(
+    static_tf_lidar = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
-        name='static_transform_publisher',
+        name='static_tf_lidar',
         arguments=['0', '0', '0', '0', '0', '0', 'velodyne_sensor', 'hunter2/base_link/velodyne_sensor'],
+        output='screen'
+    )
+
+    static_tf_imu = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_tf_imu',
+        arguments=['0', '0', '0.05', '0', '0', '0', 'base_link', 'hunter2/base_link/imu_sensor'],
+        output='screen'
+    )
+
+    static_tf_gps = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_tf_gps',
+        arguments=['0', '0', '0.1', '0', '0', '0', 'base_link', 'hunter2/base_link/navsat_sensor'],
+        output='screen'
+    )
+
+    static_tf_camera = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_tf_camera',
+        arguments=['0', '0', '0', '0', '0', '0', 'camera_link', 'hunter2/base_link/camera_sensor'],
+        output='screen'
+    )
+
+    gps_covariance_relay = Node(
+        package='gazebo_harmonic',
+        executable='gps_covariance_relay',
+        name='gps_covariance_relay',
+        parameters=[{'use_sim_time': True}],
+        output='screen'
+    )
+
+    vehicle_speed_publisher = Node(
+        package='gazebo_harmonic',
+        executable='vehicle_speed_publisher',
+        name='vehicle_speed_publisher',
+        parameters=[{'use_sim_time': True}],
         output='screen'
     )
 
@@ -85,5 +120,10 @@ def generate_launch_description():
         gazebo_simulator,
         spawn_car,
         bridge,
-        static_tf,
+        static_tf_lidar,
+        static_tf_imu,
+        static_tf_gps,
+        static_tf_camera,
+        gps_covariance_relay,
+        vehicle_speed_publisher,
     ])

@@ -28,8 +28,8 @@
       <geometry>
         <mesh filename="file://$(find hunter_base)/meshes/base_link.stl"/>
       </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 1"/>
+      <material name="chassis_dark_gray">
+        <color rgba="0.3 0.3 0.3 1"/>
       </material>
     </visual>
 

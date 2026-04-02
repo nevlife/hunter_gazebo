@@ -2,4 +2,12 @@ build/
 install/
 log/
 
+# RGLGazeboPlugin build artifacts
+external/RGLGazeboPlugin/build/
+external/RGLGazeboPlugin/install/
+
+# IDE
+.vscode/
+.idea/
+
 .claude/

@@ -14,7 +14,7 @@
         <mesh filename="file://$(find hunter_base)/meshes/rear_left_wheel_link.stl"/>
       </geometry>
       <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
+        <color rgba="0.3 0.3 0.3 1"/>
       </material>
     </visual>
     <collision>
@@ -48,7 +48,7 @@
         <mesh filename="file://$(find hunter_base)/meshes/rear_right_wheel_link.stl"/>
       </geometry>
       <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
+        <color rgba="0.3 0.3 0.3 1"/>
       </material>
     </visual>
     <collision>

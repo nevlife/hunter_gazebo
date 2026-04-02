@@ -2,7 +2,7 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, ExecuteProcess, SetEnvironmentVariable
+from launch.actions import IncludeLaunchDescription, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 
@@ -11,14 +11,14 @@ def generate_launch_description():
 
     # Set Gazebo model path
     gazebo_model_path = '/home/pgw/dev/gazebo_models_worlds_collection'
-    lidar_model_path = os.path.join(get_package_share_directory('hunter_base'), 'urdf')
-    combined_path = f'{gazebo_model_path}:{lidar_model_path}'
+    hunter_base_share = get_package_share_directory('hunter_base')
+    hunter_base_parent = os.path.dirname(hunter_base_share)
+    combined_path = f'{gazebo_model_path}:{hunter_base_parent}:{hunter_base_share}/urdf'
     set_gz_resource_path = SetEnvironmentVariable(
         name='GZ_SIM_RESOURCE_PATH',
         value=combined_path
     )
 
-    # Use empty world with GPS support
     pkg_share = get_package_share_directory('gazebo_harmonic')
     gazebo_world_path = os.path.join(pkg_share, 'world', 'empty_with_gps.sdf')
 
@@ -34,21 +34,18 @@ def generate_launch_description():
         'start_y': '0',
         'start_z': '0.4',
         'start_yaw': '0',
-        'pub_tf': 'true',
-        'tf_freq': '100.0',
-        'blue': 'false'
     }
 
     spawn_car = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             os.path.join(
-                         get_package_share_directory('gazebo_harmonic'),
-                         'launch', 'hunter_spawn.launch.py')
+                get_package_share_directory('gazebo_harmonic'),
+                'launch', 'hunter_spawn.launch.py')
         ]),
         launch_arguments=car_sim_options.items()
     )
 
-    # Bridge between Gazebo and ROS 2
+    # Bridge between Gazebo Harmonic and ROS 2
     bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
@@ -60,19 +57,17 @@ def generate_launch_description():
         arguments=[
             '/imu@sensor_msgs/msg/Imu@gz.msgs.IMU',
             '/gps@sensor_msgs/msg/NavSatFix@gz.msgs.NavSat',
-            # '/lidar@sensor_msgs/msg/LaserScan@gz.msgs.LaserScan',
             '/velodyne_points/points@sensor_msgs/msg/PointCloud2@gz.msgs.PointCloudPacked',
             '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
             '/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist',
             '/joint_states@sensor_msgs/msg/JointState@gz.msgs.Model',
             '/odom@nav_msgs/msg/Odometry@gz.msgs.Odometry',
-            #'/tf@tf2_msgs/msg/TFMessage@gz.msgs.Pose_V',
-            '/odometry/ground_truth@nav_msgs/msg/Odometry@gz.msgs.Odometry'
+            '/odometry/ground_truth@nav_msgs/msg/Odometry@gz.msgs.Odometry',
+            '/camera/raw@sensor_msgs/msg/Image[gz.msgs.Image'
         ],
         output='screen'
     )
 
-    # Static TF to bridge URDF link and Gazebo sensor frame
     static_tf_lidar = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
@@ -97,10 +92,26 @@ def generate_launch_description():
         output='screen'
     )
 
+    static_tf_camera = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_tf_camera',
+        arguments=['0', '0', '0', '0', '0', '0', 'camera_link', 'hunter2/base_link/camera_sensor'],
+        output='screen'
+    )
+
     gps_covariance_relay = Node(
         package='gazebo_harmonic',
         executable='gps_covariance_relay',
         name='gps_covariance_relay',
+        parameters=[{'use_sim_time': True}],
+        output='screen'
+    )
+
+    vehicle_speed_publisher = Node(
+        package='gazebo_harmonic',
+        executable='vehicle_speed_publisher',
+        name='vehicle_speed_publisher',
         parameters=[{'use_sim_time': True}],
         output='screen'
     )
@@ -113,5 +124,7 @@ def generate_launch_description():
         static_tf_lidar,
         static_tf_imu,
         static_tf_gps,
+        static_tf_camera,
         gps_covariance_relay,
+        vehicle_speed_publisher,
     ])

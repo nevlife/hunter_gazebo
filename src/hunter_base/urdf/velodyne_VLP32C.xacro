@@ -12,7 +12,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="model://Lidar 3d v1/meshes/lidar_3d_v1.dae"/>
+        <mesh filename="file://$(find hunter_base)/meshes/lidar_3d_v1.dae"/>
       </geometry>
     </visual>
 
@@ -31,10 +31,12 @@
     </inertial>
   </link>
 
-  <joint name="lidar_visual_joint" type="fixed">
+  <joint name="lidar_visual_joint" type="revolute">
     <parent link="front_box"/>
     <child link="lidar_visual_link"/>
-    <origin xyz="0.23 0.14 0.28" rpy="0 0 1.5708"/>
+    <origin xyz="0.23 0.14 0.30" rpy="0 0 1.5708"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="0" upper="0" effort="0" velocity="0"/>
   </joint>
 
   <joint name="lidar_sensor_joint" type="fixed">

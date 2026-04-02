@@ -14,33 +14,35 @@
       <geometry>
         <mesh filename="file://$(find hunter_base)/meshes/front_box_with_logo_only_body.stl" scale="0.01 0.01 0.01"/>
       </geometry>
-      <material name="white">
+      <material name="front_box_white">
         <color rgba="1.0 1.0 1.0 1.0"/>
       </material>
     </visual>
 
+    <xacro:unless value="${for_rviz}">
     <visual name="box_visual_logo">
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="file://$(find hunter_base)/meshes/front_box_with_logo_only_logo.stl" scale="0.01 0.01 0.01"/>
       </geometry>
-      <material name="navy">
+      <material name="front_box_navy">
         <color rgba="0.0 0.0 0.5 1.0"/>
       </material>
     </visual>
+    </xacro:unless>
 
     <visual name="box_visual_shadow">
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="file://$(find hunter_base)/meshes/front_box_with_logo_only_shadow.stl" scale="0.01 0.01 0.01"/>
       </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 1.0"/>
+      <material name="front_box_shadow">
+        <color rgba="0.15 0.15 0.15 1.0"/>
       </material>
     </visual>
 
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.228 0.185 0.138" rpy="0 0 0"/>
       <geometry>
         <box size="0.455 0.370 0.275"/>
       </geometry>
